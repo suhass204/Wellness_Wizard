@@ -1,0 +1,166 @@
+:root {
+    --bg-dark: #121212;
+    --bg-light: #1e1e1e;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --accent-red: #ff3b30;
+    --accent-red-dark: #c00;
+    --accent-gray: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', 'Arial', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: var(--bg-light);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 2px solid var(--accent-red);
+    padding-bottom: 15px;
+}
+
+h1 {
+    color: var(--accent-red);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.user-profile {
+    background-color: var(--accent-gray);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.profile-item {
+    background-color: var(--bg-dark);
+    padding: 12px 18px;
+    border-radius: 8px;
+    min-width: 120px;
+    text-align: center;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.profile-item:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-red);
+}
+
+.goal-info {
+    background-color: var(--accent-gray);
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    border-left: 5px solid var(--accent-red);
+}
+
+.goal-info strong {
+    color: var(--accent-red);
+}
+
+.plan-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.plan-header h2 {
+    color: var(--accent-red);
+    font-size: 1.8rem;
+}
+
+h3.day-header {
+    color: var(--accent-red);
+    border-bottom: 2px solid var(--accent-gray);
+    padding-bottom: 10px;
+    margin-top: 30px;
+    font-size: 1.4rem;
+}
+
+#workoutPlan ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#workoutPlan li {
+    background-color: var(--accent-gray);
+    margin: 10px 0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+#workoutPlan li:hover {
+    transform: translateX(10px);
+    background-color: var(--bg-dark);
+    border-left: 4px solid var(--accent-red);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    gap: 20px;
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-red);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+button:hover {
+    background-color: var(--accent-red-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .user-profile, .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-item, button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}

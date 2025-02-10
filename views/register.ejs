@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Wellness Wizard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #ffffff;
+            background-image: url("https://foodparadise.network/wp-content/uploads/2023/03/best-gyms-in-bali-scaled.jpg");
+           background-attachment: fixed;
+           background-size: cover;
+        }
+        .bg-custom-red {
+            background-color: #FF3131;
+        }
+        .text-custom-red {
+            color: #FF3131;
+        }
+        .header {
+           background-color: rgba(0, 0, 0, 0.9);
+           box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+           border-bottom: 2px solid #FF0000;
+       }
+        .footer {
+           background-color: rgba(0, 0, 0, 0.9);
+           color: #ffffff;
+           border-top: 2px solid #FF0000;
+       }
+       .logo img {
+           max-height: 70px;
+           max-width: 160px;
+           object-fit: contain;
+       }
+        .form-control {
+            background-color: #2C2C2C;
+            color: #ffffff;
+            border-color: #4C4C4C;
+        }
+        .form-control:focus {
+            background-color: #3C3C3C;
+            border-color: #FF3131;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255,49,49,0.25);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <header class="header p-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="#" class="logo">
+                <img src="/assets/logo.png" alt="POWER FITNESS Logo">
+            </a>
+        </div>
+    </header>
+
+    <main role="main" class="container mx-auto flex-grow flex flex-col justify-center items-center py-16">
+        <div class="w-full max-w-md">
+            <div class="text-center">
+                <form class="form-register bg-gray-800 p-8 rounded-lg shadow-lg" action="/users/register" method="POST">
+                    <h1 class="h3 mb-4 text-2xl font-bold text-white">Please Register</h1>
+                    
+                    <div class="mb-4">
+                        <label for="name" class="sr-only">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-control w-full px-3 py-2 rounded"
+                            placeholder="Your Name"
+                            required
+                            autofocus
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="email" class="sr-only">Email address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-control w-full px-3 py-2 rounded"
+                            placeholder="Email address"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="sr-only">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-control w-full px-3 py-2 rounded"
+                            placeholder="Password"
+                            required
+                        />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password_confirm" class="sr-only">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="password_confirm"
+                            name="password_confirm"
+                            class="form-control w-full px-3 py-2 rounded"
+                            placeholder="Confirm Password"
+                            required
+                        />
+                    </div>
+
+                    <input 
+                        type="submit" 
+                        value="Register" 
+                        class="bg-custom-red text-white w-full py-2 rounded hover:bg-red-700 transition duration-300"
+                    >
+
+                    <% if (typeof errors != 'undefined') { %>
+                        <div class="mt-4">
+                            <% errors.forEach(error => { %>
+                                <p class="text-red-400 text-sm mb-2">* <%= error.message %></p>
+                            <% }) %>
+                        </div>
+                    <% } %>
+
+                    <p class="text-gray-400 mt-4">
+                        Already registered...! 
+                        <a href="/users/login" class="text-custom-red hover:underline">Sign In</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer py-6 mt-auto">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 WELLNESS WIZARD. All rights reserved.</p>
+            
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Diet Recommendation | Wellness Wizard</title>
+    <link rel="stylesheet" href="/css/diet.css">
+
+</head>
+<body>
+    <a href="/users/home" class="home-link">Home</a>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="#" class="logo">
+                <img src="/assets/logo.png"   
+                 alt="POWER FITNESS Logo">
+            </a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Transform Your Body</h1>
+            <p>Join our community and start your fitness journey today. Expert guidance, personalized plans, and state-of-the-art facilities.</p>
+        </div>
+    </section>
+
+    <section class="form-section" id="start">
+        <div class="container">
+            <div class="section-title">
+                <h2>Start Your Journey</h2>
+                <p>Fill out the form below and take the first step towards your fitness goals</p>
+            </div>
+            <div class="form-container">
+                <form id="dietForm" onsubmit="event.preventDefault(); console.log('Form submitted');">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" name="height" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="region">Region</label>
+                            <input type="text" id="region" name="region" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="activityLevel">Activity Level</label>
+                            <select id="activityLevel" name="activityLevel" required>
+                                <option value="">Select activity level</option>
+                                <option value="sedentary">Sedentary</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="active">Active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="allergies">Food Allergies</label>
+                        <textarea id="allergies" name="allergies" 
+                            placeholder="List any food allergies or restrictions..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="goal">Fitness Goal</label>
+                        <select id="goal" name="goal" required>
+                            <option value="">Select your goal</option>
+                            <option value="weight-loss">Weight Loss</option>
+                            <option value="weight-gain">Weight Gain</option>
+                            <option value="fitness">General Fitness</option>
+                            <option value="muscle-gain">Muscle Gain</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodPreference">Food Preference</label>
+                        <select id="foodPreference" name="foodPreference" required>
+                            <option value="">Select your preference</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                            <option value="non-vegetarian">Non-vegetarian</option>
+                            <option value="pescatarian">Pescatarian</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dietaryPreference">Dietary Preference</label>
+                        <select id="dietaryPreference" name="dietaryPreference" required>
+                            <option value="">Select your dietary preference</option>
+                            <option value="balanced">Balanced Diet</option>
+                            <option value="low-carb">Low Carb</option>
+                            <option value="high-protein">High Protein</option>
+                            <option value="keto">Ketogenic</option>
+                            <option value="paleo">Paleo</option>
+                            <option value="mediterranean">Mediterranean</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Start Your Transformation</button>
+                </form>
+                <div id="output"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 WELLNESS WIZARD. All rights reserved.</p>
+    </footer>
+
+
+    <script>
+        document.getElementById('dietForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => (data[key] = value));
+    
+            try {
+                const response = await fetch('/get-nutrition-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+                const result = await response.json();
+
+                const resultPage = window.open('', '_blank');
+                if (resultPage) {
+                    resultPage.document.write(`
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Nutrition Plan</title>
+                            <style>
+                                /* General Styling */
+                                body {
+                                    font-family: 'Arial', sans-serif;
+                                    margin: 20px;
+                                    background-color: #000; /* Black background */
+                                    color: #fff; /* White text */
+                                    line-height: 1.6;
+                                }
+
+                                h1{
+                                text-align: center;
+                                }
+    
+                                /* Headings */
+                                h1, h3 {
+                                    color: #ff0000; /* Red headings */
+                                }
+    
+                                /* Meal Divs */
+                                div {
+                                    margin-bottom: 20px;
+                                    padding: 15px;
+                                    background: #222; /* Dark gray for meal sections */
+                                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+                                    border-radius: 8px;
+                                }
+    
+                                /* Ingredient List */
+                                ul {
+                                    margin: 0;
+                                    padding-left: 20px;
+                                    list-style-type: square;
+                                }
+    
+                                /* Paragraphs */
+                                p {
+                                    margin: 5px 0;
+                                    color: #fff; /* White text */
+                                }
+    
+                                /* Action Buttons */
+                                .action-buttons {
+                                    margin-top: 20px;
+                                    text-align: center;
+                                }
+                                .action-buttons button {
+                                    margin: 10px;
+                                    padding: 10px 20px;
+                                    background-color: #ff0000; /* Red button */
+                                    color: #fff; /* White text on buttons */
+                                    border: none;
+                                    border-radius: 5px;
+                                    cursor: pointer;
+                                    font-size: 16px;
+                                }
+                                .action-buttons button:hover {
+                                    background-color: #cc0000; /* Darker red on hover */
+                                }
+    
+                                /* Footer */
+                                footer {
+                                    margin-top: 30px;
+                                    text-align: center;
+                                    font-size: 14px;
+                                    color: #888; /* Gray text for footer */
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <h1>Your Nutrition Plan</h1>
+                            <div>
+                                <h3>Total Daily Caloric Intake</h3>
+                                <p>${result.TotalDailyCaloricIntake} kcal</p>
+                            </div>
+                            <div class="meal-container">
+                                ${Object.entries(result)
+                                    .filter(([key]) => key !== 'TotalDailyCaloricIntake')
+                                    .map(([meal, details]) => `
+                                        <div>
+                                            <h3>${meal}</h3>
+                                            <p><strong>Calories:</strong> ${details.Calories} kcal</p>
+                                            <p><strong>Protein:</strong> ${details.Protein} g</p>
+                                            <p><strong>Carbs:</strong> ${details.Carbs} g</p>
+                                            <p><strong>Fat:</strong> ${details.Fat} g</p>
+                                            <h4>Ingredients:</h4>
+                                            <ul class="ingredient-list">
+                                                ${Object.entries(details.Ingredients).map(
+                                                    ([ingredient, quantity]) => `<li>${ingredient}: ${quantity}</li>`
+                                                ).join('')}
+                                            </ul>
+                                        </div>
+                                    `).join('')}
+                            </div>
+                            <div class="action-buttons">
+                                <button onclick="window.print()">Print Plan</button>
+                                <button onclick="window.location.href='/diet'">Return to Form</button>
+                            </div>
+                            <footer>&copy; 2024 WELLNESS WIZARD. All rights reserved.</footer>
+                        </body>
+                        </html>
+                    `);
+                    resultPage.document.close();
+                } else {
+                    alert('Unable to open a new page. Please check your browser settings.');
+                }
+            } catch (error) {
+                alert('Error generating diet plan.');
+            }
+        });
+    </script>
+    
+</body>
+</html>
+

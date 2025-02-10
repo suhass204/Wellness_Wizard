@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wellness Wizard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1E1E1E;
+            color: #ffffff;
+            background-image: url("https://t4.ftcdn.net/jpg/03/17/72/47/360_F_317724775_qHtWjnT8YbRdFNIuq5PWsSYypRhOmalS.jpg");
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .bg-custom-red {
+            background-color: #FF3131;
+        }
+        .text-custom-red {
+            color: #FF3131;
+        }
+        .header {
+            background-color: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+            border-bottom: 2px solid #FF0000;
+        }
+        .footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ffffff;
+            border-top: 2px solid #FF0000;
+        }
+        .logo img {
+            max-height: 70px;
+            max-width: 160px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+    <header class="header p-4 flex items-center justify-between">
+        <div class="flex items-center">
+            <a href="#" class="logo">
+                <img src="/assets/logo.png" alt="POWER FITNESS Logo">
+            </a>
+        </div>
+
+    </header>
+    <main role="main" class="container mx-auto text-center flex-grow flex flex-col justify-center items-center py-16">
+        <h1 class="text-5xl font-bold mb-4 text-custom-red">Hello there</h1>
+        <p class="text-xl mb-6 text-black">Welcome to Power Fitness</p>
+        <div class="space-x-4">
+            <a href="/users/login" class="inline-block bg-custom-red text-white px-6 py-3 rounded-md hover:bg-red-700 transition duration-300">Login Here</a>
+            <a href="/users/register" class="inline-block bg-white text-black px-6 py-3 rounded-md hover:bg-gray-100 transition duration-300">Register Here</a>
+        </div>
+    </main>
+    <footer class="footer py-6 mt-auto">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 WELLNESS WIZARD. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

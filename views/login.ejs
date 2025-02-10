@@ -1,0 +1,175 @@
+<!-- 
+
+
+<div class="text-center">
+  
+  <p >
+    <% if(messages.success_msg) { %>
+        <p class="help-block  mb-3 text-muted"><%= messages.success_msg %></p>
+        <% } %>
+      </p>
+      <p>
+        <% if (messages.error) { %>
+        <p class="help-block  mb-3 text-muted"><%= messages.error %></p>
+        <% } %>
+      </p>
+    
+      <form class="form-signin" action="/users/login" method="POST">
+        <h1 class="h3 mb-3 font-weight-normal">Please Log In</h1>
+    
+        
+    
+    
+        <label for="email" class="sr-only">Email address</label>
+        <input
+          type="email"
+          id="inputEmail"
+          name="email"
+          class="form-control"
+          placeholder="Email address"
+          required
+          autofocus
+        />
+        <label for="password" class="sr-only">Password</label>
+        <input
+          type="password"
+          id="inputPassword"
+          name="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+        <br />
+        <input type="submit" value="Login" class="btn btn-lg btn-primary btn-block">
+         
+        </input>
+        <p class="help-block mt-5 mb-3 text-muted">
+          Don't have an account.!
+          <a href="/users/register"> Register </a>
+        </p>
+      </form>
+    </div>
+    
+     -->
+    
+     <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login | Wellness wizard</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+        <style>
+            body {
+                background-color: #1E1E1E;
+                color: #ffffff;
+                background-image: url("https://images.squarespace-cdn.com/content/v1/644927389a1ab06f2f12a9fe/d2cef23b-98a3-4e23-9835-e24209de58f5/IMG_4073.jpg");
+                background-attachment: fixed;
+                background-size: cover;
+            }
+            .bg-custom-red {
+                background-color: #FF3131;
+            }
+            .text-custom-red {
+                color: #FF3131;
+            }
+            .header {
+                background-color: rgba(0, 0, 0, 0.9);
+                box-shadow: 0 2px 4px rgba(255,255,255,0.1);
+                border-bottom: 2px solid #FF0000;
+            }
+            .footer {
+                background-color: rgba(0, 0, 0, 0.9);
+                color: #ffffff;
+                border-top: 2px solid #FF0000;
+            }
+            .logo img {
+                max-height: 70px;
+                max-width: 160px;
+                object-fit: contain;
+            }
+            .form-control {
+                background-color: #2C2C2C;
+                color: #ffffff;
+                border-color: #4C4C4C;
+            }
+            .form-control:focus {
+                background-color: #3C3C3C;
+                border-color: #FF3131;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(255,49,49,0.25);
+            }
+        </style>
+    </head>
+    <body class="flex flex-col min-h-screen">
+        <header class="header p-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="#" class="logo">
+                    <img src="/assets/logo.png" alt="POWER FITNESS Logo">
+                </a>
+            </div>
+        </header>
+
+        <main role="main" class="container mx-auto flex-grow flex flex-col justify-center items-center py-16">
+            <div class="w-full max-w-md">
+                <div class="text-center">
+                    <% if(messages.success_msg) { %>
+                        <p class="help-block mb-3 text-muted"><%= messages.success_msg %></p>
+                    <% } %>
+    
+                    <% if (messages.error) { %>
+                        <p class="help-block mb-3 text-muted"><%= messages.error %></p>
+                    <% } %>
+    
+                    <form class="form-signin bg-gray-800 p-8 rounded-lg shadow-lg" action="/users/login" method="POST">
+                        <h1 class="h3 mb-4 text-2xl font-bold text-white">Please Log In</h1>
+                        
+                        <div class="mb-4">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input
+                                type="email"
+                                id="inputEmail"
+                                name="email"
+                                class="form-control w-full px-3 py-2 rounded"
+                                placeholder="Email address"
+                                required
+                                autofocus
+                            />
+                        </div>
+    
+                        <div class="mb-4">
+                            <label for="password" class="sr-only">Password</label>
+                            <input
+                                type="password"
+                                id="inputPassword"
+                                name="password"
+                                class="form-control w-full px-3 py-2 rounded"
+                                placeholder="Password"
+                                required
+                            />
+                        </div>
+    
+                        <input 
+                            type="submit" 
+                            value="Login" 
+                            class="bg-custom-red text-white w-full py-2 rounded hover:bg-red-700 transition duration-300"
+                        >
+    
+                        <p class="text-gray-400 mt-4">
+                            Don't have an account! 
+                            <a href="/users/register" class="text-custom-red hover:underline">Register</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </main>
+    
+        <footer class="footer py-6 mt-auto">
+            <div class="container mx-auto text-center">
+                <p>&copy; 2024 WELLNESS WIZARD. All rights reserved.</p>
+                
+            </div>
+        </footer>
+    </body>
+    </html>
+    

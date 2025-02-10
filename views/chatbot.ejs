@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot | Wellness Wizard </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/chatbot.css" />
+    
+</head>
+<body>
+  
+    <div class="wellness-container">
+        <div class="category-panel">
+            <div class="category-header">
+                <a href="/users/home" class="logo">
+                    <img src="/assets/logo.png"   
+                     alt="POWER FITNESS Logo">
+                </a>
+            </div>
+            
+            <div class="category-list">
+                <div class="category-item">
+                    <div class="category-icon">🏋️</div>
+                    <div class="category-name">Fitness Queries</div>
+                    <div class="category-description">Expert Fitness Advice Tailored to Your Goals</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">💊</div>
+                    <div class="category-name">Supplement Guidance</div>
+                    <div class="category-description">Personalized Nutrition and Supplement Recommendations</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🏋️‍♀️</div>
+                    <div class="category-name">Equipment Support</div>
+                    <div class="category-description">Expert Advice on Fitness Equipment and Gear</div>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">🔥</div>
+                    <div class="category-name">Wellness Coaching</div>
+                    <div class="category-description">Holistic Approach to Health and Fitness</div>
+                </div>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <div class="chat-title">
+                    Wellness Wizard Assistant
+                </div>
+                <a href="/users/home" class="home-link">Home</a>
+            </div>
+            <div class="chat-area">
+                <div class="message bot">
+                    <div class="message-content">
+                        Welcome to Wellness Wizard! Select a category and ask your fitness-related question.
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <div class="input-wrapper">
+                    <input type="text" placeholder="Ask your fitness question..." aria-label="Enter your message">
+                    <button class="send-button" aria-label="Send message">
+                        ➤
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navItems = document.querySelectorAll('.category-item');
+        const chatMessages = document.querySelector('.chat-area');
+        const inputField = document.querySelector('.chat-input input');
+        const sendButton = document.querySelector('.send-button');
+
+        let selectedCategory = '';
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                selectedCategory = item.querySelector('.category-name').innerText;
+                addMessage('bot', `You selected: ${selectedCategory}. Please enter your prompt.`);
+            });
+        });
+
+        sendButton.addEventListener('click', () => {
+            const userMessage = inputField.value.trim();
+            if (!userMessage || !selectedCategory) {
+                addMessage('bot', 'Please select a category and enter a prompt.');
+                return;
+            }
+
+            addMessage('user', userMessage);
+
+            inputField.value = '';
+
+            fetch('http://localhost:3000/api/chatbot/wellness-chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ category: selectedCategory, prompt: userMessage }),
+            })
+            .then(response => response.text())
+            .then(botResponse => {
+                addMessage('bot', botResponse);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                addMessage('bot', 'Sorry, there was an error processing your request.');
+            });
+        });
+
+        // Function to add messages to chat
+        function addMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', sender);
+            
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.textContent = message;
+            
+            messageElement.appendChild(messageContent);
+            chatMessages.appendChild(messageElement);
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    });
+    </script>
+</body>
+</html>

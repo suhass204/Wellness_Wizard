@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personalized Workout Plan</title>
+    <link rel="stylesheet" href="/css/recommendation.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Personalized Workout Plan</h1>
+            <div class="user-profile" id="userProfile"></div>
+        </header>
+
+        <main>
+            <section id="goalInfo" aria-labelledby="goalInfoHeader">
+                <div class="goal-info"></div>
+            </section>
+
+            <div class="plan-container">
+                <div class="plan-header">
+                    <h2>Weekly Workout Schedule</h2>
+                    <span id="generatedDate"></span>
+                </div>
+
+                <div id="workoutPlan"></div>
+
+                <div class="action-buttons">
+                    <button aria-label="Print workout plan" onclick="window.print()">Print Plan</button>
+                    <button aria-label="Create a new plan" onclick="window.location.href='/workout'">Create New Plan</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const workoutData = JSON.parse(sessionStorage.getItem('workoutPlan'));
+
+            if (!workoutData || !workoutData.userProfile || !workoutData.weeklySchedule) {
+                alert("Workout data not found. Redirecting to the home page.");
+                window.location.href = '/';
+                return;
+            }
+
+            const { age, weight, height, fitnessLevel, gender, goal } = workoutData.userProfile;
+            const userProfileHTML = `
+                <div class="profile-item"><strong>Age:</strong> ${age}</div>
+                <div class="profile-item"><strong>Weight:</strong> ${weight} kg</div>
+                <div class="profile-item"><strong>Height:</strong> ${height} cm</div>
+                <div class="profile-item"><strong>Fitness Level:</strong> ${fitnessLevel}</div>
+                <div class="profile-item"><strong>Goal:</strong> ${goal}</div>
+            `;
+            document.getElementById('userProfile').innerHTML = userProfileHTML;
+
+            const goalInfoHTML = `
+                <p><strong>Goal:</strong> ${goal}</p>
+                <p><strong>Target Population:</strong> ${gender}, ${age} years old, ${weight} kg, ${height} cm, ${fitnessLevel} fitness level</p>
+            `;
+            document.getElementById('goalInfo').innerHTML = goalInfoHTML;
+            const date = new Date(workoutData.generatedAt);
+            document.getElementById('generatedDate').textContent = 
+                isNaN(date) ? "Generated on: Unknown" : `Generated on: ${date.toLocaleDateString()}`;
+
+            const parseMarkdown = (line) => {
+    if (line.match(/^\*\*(.+)\*\*$/)) 
+        return `<h3 class="day-header">${line.replace(/\*\*/g, '').trim()}</h3>`;
+    
+    if (line.match(/^\*(.+)$/)) 
+        return `<li>${line.replace(/^\*/, '').trim()}</li>`;
+    
+    if (line.match(/^#{1,3}\s*(.+)$/)) {
+        const level = line.match(/^#+/)[0].length;
+        return `<h${level}>${line.replace(/^#+/, '').trim()}</h${level}>`;
+    }
+
+    return `<p>${line.trim()}</p>`;
+};
+
+            const workoutPlanHTML = workoutData.weeklySchedule
+                .split('\n')
+                .map(parseMarkdown)
+                .join('');
+
+            document.getElementById('workoutPlan').innerHTML = workoutPlanHTML || 
+                `<p>No workout plan available. Please try generating a new one.</p>`;
+        });
+    </script>
+</body>
+</html>
